@@ -2,8 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Radium from 'radium'
 
-import TimeDropdown from './TimeDropdown'
-import { CLOCK_DATA } from '../helpers/data';
 import { popInOut } from '../helpers/animations';
 
 export class Time extends React.Component {
@@ -14,8 +12,6 @@ export class Time extends React.Component {
 		this.toggleMeridiem = this.toggleMeridiem.bind(this)
 		this.hourClick = this.hourClick.bind(this)
 		this.minuteClick = this.minuteClick.bind(this)
-		this.closeHourSelect = this.closeHourSelect.bind(this)
-		this.closeMinuteSelect = this.closeMinuteSelect.bind(this)
 	}
 	toggleMeridiem(){
 		if (this.props.meridiem === 'am'){
@@ -28,24 +24,13 @@ export class Time extends React.Component {
 	hourClick(){
 		if (this.props.unit !== 'hour'){
 			this.props.changeUnit('hour')
-		} else {
-			this.setState({ showHourSelect: !this.state.showHourSelect })
 		}
-	}
-	closeHourSelect(){
-		this.setState({ showHourSelect: false })
 	}
 	minuteClick(){
 		if (this.props.unit !== 'minute'){
 			this.props.changeUnit('minute')
-		} else {
-			this.setState({ showMinuteSelect: !this.state.showMinuteSelect })
 		}
 	}
-	closeMinuteSelect(){
-		this.setState({ showMinuteSelect: false })
-	}
-
 	render(){
 		const props = this.props;
 		const config = props.config;
@@ -121,17 +106,6 @@ export class Time extends React.Component {
 						>
 							{props.hour}
 						</span>
-
-						{this.state.showHourSelect ?
-							<TimeDropdown
-								config={props.config}
-								type='hour'
-								updateVal={props.changeHour}
-								val={props.hour}
-								options={ CLOCK_DATA[props.unit].dropdownOptions }
-								close={this.closeHourSelect}
-							/>
-						: ''}
 					</div>
 
 					<span style={styles.colon}>:</span>
@@ -147,17 +121,6 @@ export class Time extends React.Component {
 						>
 							{formattedMinute}
 						</span>
-
-						{this.state.showMinuteSelect ?
-							<TimeDropdown
-								config={props.config}
-								type='minute'
-								updateVal={props.changeMinute}
-								val={props.minute}
-								options={ CLOCK_DATA[props.unit].dropdownOptions }
-								close={this.closeMinuteSelect}
-							/>
-						: ''}
 					</div>
 
 
